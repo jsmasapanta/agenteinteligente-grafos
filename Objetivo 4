@@ -1,0 +1,41 @@
+import matplotlib.pyplot as plt
+from collections import deque
+
+# Crear un grafo dirigido con las líneas de transporte público y las estaciones
+graph = {
+    'A': [('B', 5), ('C', 3)],
+    'B': [('D', 2)],
+    'C': [('E', 4)],
+    'D': [('F', 6)],
+    'E': [('F', 1)],
+    'F': []
+}
+
+# Encontrar la ruta más corta entre dos estaciones utilizando BFS
+start = 'A'
+end = 'F'
+queue = deque([(start, [start])])
+visited = set()
+
+while queue:
+    node, path = queue.popleft()
+    if node == end:
+        shortest_path = path
+        break
+    if node not in visited:
+        visited.add(node)
+        for neighbor, _ in graph[node]:
+            queue.append((neighbor, path + [neighbor]))
+
+# Dibujar el grafo y resaltar la ruta más corta
+positions = {'A': (0, 1), 'B': (1, 2), 'C': (1, 0), 'D': (2, 3), 'E': (2, 1), 'F': (3, 2)}
+plt.figure(figsize=(5, 5))
+for node, edges in graph.items():
+    for neighbor, weight in edges:
+        plt.plot([positions[node][0], positions[neighbor][0]], [positions[node][1], positions[neighbor][1]], 'k-', linewidth=1)
+plt.scatter([pos[0] for pos in positions.values()], [pos[1] for pos in positions.values()], s=50, facecolors='w', edgecolors='k')
+for i in range(1, len(shortest_path)):
+    plt.plot([positions[shortest_path[i-1]][0], positions[shortest_path[i]][0]], [positions[shortest_path[i-1]][1], positions[shortest_path[i]][1]], 'r-', linewidth=2)
+plt.xticks([])
+plt.yticks([])
+plt.show()
