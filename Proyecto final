@@ -1,3 +1,7 @@
+# **OBJETIVO 1:**
+- proporcionar una representación gráfica del sistema de transporte público, que permita visualizar las conexiones entre las diferentes estaciones y rutas.
+"""
+
 import matplotlib.pyplot as plt
 
 # Crear un grafo dirigido vacío
@@ -22,6 +26,16 @@ for node in G:
         plt.plot([pos[node][0], pos[neighbor][0]], [pos[node][1], pos[neighbor][1]], 'k-')
     plt.text(pos[node][0], pos[node][1], node, fontsize=12, ha='center', va='center')
 plt.show()
+
+"""Este código crea un grafo dirigido que representa un sistema de transporte público con seis estaciones (A, B, C, D, E, F) y seis rutas entre ellas. Cada estación es un nodo del grafo y cada ruta es un arco dirigido que conecta dos estaciones. El código utiliza la biblioteca de Python matplotlib.pyplot para dibujar el grafo resultante.
+
+Primero, se crea un grafo vacío G representado como un diccionario. Luego, se agregan las seis estaciones como nodos del grafo. Después, se agregan las seis rutas como arcos del grafo. Para cada ruta, se agrega un arco dirigido desde la estación de partida hasta la estación de destino.
+
+Finalmente, se dibuja el grafo utilizando la función plt.plot de matplotlib. El código define una posición para cada estación y utiliza esta información para dibujar los arcos y etiquetar los nodos. La función plt.show() muestra la figura resultante.
+
+# **OBJETIVO 2:**
+- encontrar la ruta más corta entre dos estaciones en un sistema de transporte público, utilizando el algoritmo de Dijkstra.
+"""
 
 # Crear un grafo dirigido con las líneas de transporte público y las estaciones
 G = {
@@ -59,6 +73,19 @@ shortest_path.reverse()
 
 # Imprimir la ruta más corta
 print("La ruta más corta entre {} y {} es: {}".format(start, end, shortest_path))
+
+"""Este código crea un grafo dirigido con seis estaciones (A, B, C, D, E, F) y seis rutas entre ellas. Cada ruta tiene un peso o distancia asociada que representa la cantidad de tiempo o distancia que se tarda en recorrerla. El código utiliza el algoritmo de Dijkstra para encontrar la ruta más corta entre dos estaciones dadas.
+
+El grafo se representa como un diccionario de diccionarios. Cada estación es un nodo en el grafo y tiene un diccionario que contiene sus vecinos y la distancia que hay entre ellos. Por ejemplo, la estación A tiene vecinos B y C, y se tarda 5 minutos en ir de A a B y 3 minutos en ir de A a C.
+
+El código luego utiliza el algoritmo de Dijkstra para encontrar la ruta más corta entre dos estaciones dadas (en este caso, la estación de inicio es A y la estación de llegada es F). El algoritmo se ejecuta iterativamente para cada nodo en el grafo, buscando la ruta más corta desde el nodo de inicio hasta todos los demás nodos. Durante el proceso, se realiza un seguimiento de la distancia más corta encontrada hasta ahora para llegar a cada nodo, así como del nodo previo en el camino más corto.
+
+Una vez que se ha encontrado la ruta más corta desde el nodo de inicio hasta todos los demás nodos, el código construye la ruta más corta desde el nodo de inicio hasta el nodo de llegada. Se sigue la lista de nodos previos para reconstruir la ruta más corta desde el nodo de llegada hasta el nodo de inicio.
+
+Finalmente, se imprime la ruta más corta entre el nodo de inicio y el nodo de llegada en la forma de una lista de estaciones. El resultado se muestra en la consola con el mensaje "La ruta más corta entre A y F es: ['A', 'C', 'E', 'F']".
+
+OBJETIVO 3:
+"""
 
 # Crear un grafo dirigido con las líneas de transporte público y las estaciones
 G = {
@@ -117,6 +144,14 @@ for i in range(len(shortest_path)-1):
 # Ruta más corta:
 # A -> C -> E -> F
 
+"""Este código crea un grafo dirigido, representado mediante un diccionario en Python, que muestra las líneas de transporte público y las estaciones correspondientes. Luego, utiliza el algoritmo de Dijkstra para encontrar la ruta más corta entre dos estaciones especificadas (en este caso, 'A' y 'F'). El algoritmo de Dijkstra es un algoritmo de búsqueda de caminos más cortos en un grafo ponderado y dirigido, que utiliza una técnica de relajación para encontrar las distancias más cortas desde un nodo fuente a todos los demás nodos en el grafo.
+
+Una vez que se encuentra la ruta más corta, se muestra una representación visual del grafo y se imprime la ruta más corta. En la representación visual del grafo, cada nodo se muestra con sus vecinos y el peso de los arcos que los conectan. La ruta más corta se muestra como una lista de estaciones que deben ser visitadas para llegar desde el inicio hasta el final de la ruta.
+
+OBJETIVO 3:
+- Encontrar la ruta más corta en un grafo dirigido.
+"""
+
 import matplotlib.pyplot as plt
 from collections import deque
 
@@ -158,3 +193,5 @@ for i in range(1, len(shortest_path)):
 plt.xticks([])
 plt.yticks([])
 plt.show()
+
+"""En este código, se utiliza un diccionario para representar el grafo, donde las claves son los nodos y los valores son una lista de tuplas que representan los nodos vecinos y el peso del borde que los conecta. Para encontrar la ruta más corta entre dos nodos, se utiliza un algoritmo de BFS que mantiene una cola de nodos y rutas hasta ese nodo. En cada iteración, se agrega a la cola la lista de ruta actualizada para los nodos vecinos no visitados. Finalmente, la ruta más corta se almacena en la variable shortest_path. Para dibujar el grafo, se utiliza la función plot de matplotlib para dibujar los bordes y la función scatter para dibujar los nodos. Se utiliza la variable positions para almacenar las posiciones de los nodos en el plano, y se utiliza la lista shortest_path para resaltar la ruta más corta en rojo.""
