@@ -1,0 +1,160 @@
+import matplotlib.pyplot as plt
+
+# Crear un grafo dirigido vacío
+G = {}
+
+# Agregar las estaciones de transporte público como nodos al grafo
+stations = ['A', 'B', 'C', 'D', 'E', 'F']
+for station in stations:
+    G[station] = []
+
+# Agregar las líneas de transporte público como arcos al grafo
+routes = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'E'), ('D', 'F'), ('E', 'F')]
+for route in routes:
+    G[route[0]].append(route[1])
+
+# Dibujar el grafo
+pos = {'A': (0, 1), 'B': (1, 2), 'C': (1, 0), 'D': (2, 3), 'E': (2, 1), 'F': (3, 2)}
+plt.figure()
+plt.axis('off')
+for node in G:
+    for neighbor in G[node]:
+        plt.plot([pos[node][0], pos[neighbor][0]], [pos[node][1], pos[neighbor][1]], 'k-')
+    plt.text(pos[node][0], pos[node][1], node, fontsize=12, ha='center', va='center')
+plt.show()
+
+# Crear un grafo dirigido con las líneas de transporte público y las estaciones
+G = {
+    'A': {'B': 5, 'C': 3},
+    'B': {'D': 2},
+    'C': {'E': 4},
+    'D': {'F': 6},
+    'E': {'F': 1},
+    'F': {}
+}
+
+# Encontrar la ruta más corta entre dos estaciones utilizando el algoritmo de Dijkstra
+start = 'A'
+end = 'F'
+distances = {node: float('inf') for node in G}
+distances[start] = 0
+visited = set()
+path = {}
+
+while len(visited) < len(G):
+    current_node = min((set(distances.keys()) - visited), key=distances.get)
+    visited.add(current_node)
+    for neighbor, distance in G[current_node].items():
+        if distances[current_node] + distance < distances[neighbor]:
+            distances[neighbor] = distances[current_node] + distance
+            path[neighbor] = current_node
+
+# Construir la ruta más corta
+shortest_path = [end]
+current_node = end
+while current_node != start:
+    current_node = path[current_node]
+    shortest_path.append(current_node)
+shortest_path.reverse()
+
+# Imprimir la ruta más corta
+print("La ruta más corta entre {} y {} es: {}".format(start, end, shortest_path))
+
+# Crear un grafo dirigido con las líneas de transporte público y las estaciones
+G = {
+    'A': {'B': 5, 'C': 3},
+    'B': {'D': 2},
+    'C': {'E': 4},
+    'D': {'F': 6},
+    'E': {'F': 1},
+    'F': {}
+}
+
+# Encontrar la ruta más corta entre dos estaciones utilizando el algoritmo de Dijkstra
+start = 'A'
+end = 'F'
+distances = {node: float('inf') for node in G}
+distances[start] = 0
+visited = set()
+path = {}
+
+while len(visited) < len(G):
+    current_node = min((set(distances.keys()) - visited), key=distances.get)
+    visited.add(current_node)
+    for neighbor, distance in G[current_node].items():
+        if distances[current_node] + distance < distances[neighbor]:
+            distances[neighbor] = distances[current_node] + distance
+            path[neighbor] = current_node
+
+# Construir la ruta más corta
+shortest_path = [end]
+current_node = end
+while current_node != start:
+    current_node = path[current_node]
+    shortest_path.append(current_node)
+shortest_path.reverse()
+
+# Imprimir la ruta más corta
+print("La ruta más corta entre {} y {} es: {}".format(start, end, shortest_path))
+
+# Mostrar una representación visual del grafo
+print("Grafo:")
+for node, neighbors in G.items():
+    print(node, ":", neighbors)
+
+print("Ruta más corta:")
+for i in range(len(shortest_path)-1):
+    print(shortest_path[i], "->", shortest_path[i+1])
+
+# Salida de ejemplo:
+# Grafo:
+# A : {'B': 5, 'C': 3}
+# B : {'D': 2}
+# C : {'E': 4}
+# D : {'F': 6}
+# E : {'F': 1}
+# F : {}
+# Ruta más corta:
+# A -> C -> E -> F
+
+import matplotlib.pyplot as plt
+from collections import deque
+
+# Crear un grafo dirigido con las líneas de transporte público y las estaciones
+graph = {
+    'A': [('B', 5), ('C', 3)],
+    'B': [('D', 2)],
+    'C': [('E', 4)],
+    'D': [('F', 6)],
+    'E': [('F', 1)],
+    'F': []
+}
+
+# Encontrar la ruta más corta entre dos estaciones utilizando BFS
+start = 'A'
+end = 'F'
+queue = deque([(start, [start])])
+visited = set()
+
+while queue:
+    node, path = queue.popleft()
+    if node == end:
+        shortest_path = path
+        break
+    if node not in visited:
+        visited.add(node)
+        for neighbor, _ in graph[node]:
+            queue.append((neighbor, path + [neighbor]))
+
+# Dibujar el grafo y resaltar la ruta más corta
+positions = {'A': (0, 1), 'B': (1, 2), 'C': (1, 0), 'D': (2, 3), 'E': (2, 1), 'F': (3, 2)}
+plt.figure(figsize=(5, 5))
+for node, edges in graph.items():
+    for neighbor, weight in edges:
+        plt.plot([positions[node][0], positions[neighbor][0]], [positions[node][1], positions[neighbor][1]], 'k-', linewidth=1)
+plt.scatter([pos[0] for pos in positions.values()], [pos[1] for pos in positions.values()], s=50, facecolors='w', edgecolors='k')
+for i in range(1, len(shortest_path)):
+    plt.plot([positions[shortest_path[i-1]][0], positions[shortest_path[i]][0]], [positions[shortest_path[i-1]][1], positions[shortest_path[i]][1]], 'r-', linewidth=2)
+plt.xticks([])
+plt.yticks([])
+plt.show()
